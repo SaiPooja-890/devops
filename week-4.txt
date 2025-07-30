@@ -1,0 +1,85 @@
+package lab;
+class  Q
+{
+	int n;
+	boolean valueSet=false;
+	synchronized public void get()
+	
+	{
+		if(!valueSet)
+		{
+		try{wait();
+		}
+		catch(Exception e) {}
+		}
+		System.out.println("GET :"+n);
+		try{
+			Thread.sleep(2000);
+			}catch(Exception e) {}
+		valueSet=false;
+		notify();
+		
+		
+	}
+	synchronized public void put(int nn)
+	{
+		if(valueSet)
+		{
+		try{wait();
+		}
+		catch(Exception e) {}
+		}
+		n=nn;
+		System.out.println("PUT :"+n);
+		try{Thread.sleep(1000);}catch(Exception e) {};
+		valueSet=true;
+		notify();
+	}
+}
+class Producer extends Thread
+{
+	Q q;
+	public Producer(Q qq)
+	{
+		q=qq;
+	}
+	@Override
+	public void run()
+	{
+		int i=0;
+		while(true)
+		{
+			q.put(i++);
+		}
+	}
+}
+class Consumer extends Thread
+{
+	Q q;
+	public Consumer(Q qq)
+	{
+		q=qq;
+	}
+	@Override
+	public void run()
+	{
+		
+		while(true)
+		{
+			q.get();
+		}
+	}
+
+}
+public class week4
+{
+
+	public static void main(String[] args) 
+	{
+		Q q=new Q();
+		Producer p=new Producer(q);
+		Consumer c=new Consumer(q);
+		p.start();
+		c.start();
+	}
+}

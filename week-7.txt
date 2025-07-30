@@ -1,0 +1,66 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class DivisionCalculator extends JFrame {
+    
+        private JTextField num1Field, num2Field, resultField;
+    private JButton divideButton;
+    
+    public DivisionCalculator() {
+                setTitle("Integer Division Calculator");
+        setSize(300, 200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null); // Center the frame
+        
+                num1Field = new JTextField(10);
+        num2Field = new JTextField(10);
+        resultField = new JTextField(10);
+        resultField.setEditable(false);  // Result field is read-only
+        divideButton = new JButton("Divide");
+
+                setLayout(new FlowLayout());
+        
+                add(new JLabel("Num1:"));
+        add(num1Field);
+        add(new JLabel("Num2:"));
+        add(num2Field);
+        add(divideButton);
+        add(new JLabel("Result:"));
+        add(resultField);
+
+                divideButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                                        int num1 = Integer.parseInt(num1Field.getText());
+                    int num2 = Integer.parseInt(num2Field.getText());
+                    
+                                        int result = num1 / num2;
+                    resultField.setText(String.valueOf(result));
+                    
+                } catch (NumberFormatException ex) {
+                                       JOptionPane.showMessageDialog(DivisionCalculator.this, 
+                        "Invalid input. Please enter valid integers.", 
+                        "Number Format Error", 
+                        JOptionPane.ERROR_MESSAGE);
+                } catch (ArithmeticException ex) {
+                                       JOptionPane.showMessageDialog(DivisionCalculator.this, 
+                        "Cannot divide by zero.", 
+                        "Arithmetic Error", 
+                        JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+    }
+
+    public static void main(String[] args) {
+        
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new DivisionCalculator().setVisible(true);
+            }
+        });
+    }
+}

@@ -1,0 +1,76 @@
+package package2;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+publicclassSimpleCalculatorextends JFrame implements ActionListener {
+private JTextField textField;
+private String operator = "";
+privatedouble num1 = 0;
+ 
+public SimpleCalculator() {
+       setTitle("Simple Calculator");
+       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       setSize(300, 400);
+       setLayout(new GridLayout(5, 4));
+ 
+       textField = new JTextField();
+       add(textField);
+ 
+       String[] buttons1 = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "/", "*", "-", "+", "=", "C"};
+ 
+for (String label : buttons1) {
+           JButton button = new JButton(label);
+           button.addActionListener(this);
+           add(button);
+       }
+ 
+       setVisible(true);
+   }
+ 
+publicvoid actionPerformed(ActionEvent e) {
+       String command = e.getActionCommand();
+if (Character.isDigit(command.charAt(0))) {
+           textField.setText(textField.getText() + command);
+       } elseif ("C".equals(command)) {
+           textField.setText("");
+           num1 = 0;
+           operator = "";
+       } elseif ("=".equals(command)) {
+try {
+double num2 = Double.parseDouble(textField.getText());
+switch (operator) {
+case "+":
+                       textField.setText(String.valueOf(num1+num2));
+break;
+case "-":
+                   textField.setText(String.valueOf(num1-num2));
+break;
+case "*":
+                 textField.setText(String.valueOf(num1 * num2));
+break;
+case "/":
+if (num2 == 0) {
+thrownew ArithmeticException("Cannot divide");
+                       }
+                 textField.setText(String.valueOf(num1 / num2));
+break;
+               }
+           } catch (NumberFormatException ex) {
+               textField.setText("Error");
+           }catch (ArithmeticException e2) {
+​JOptionPane.showMessageDialog(this, "Cannot divide by zero.",
+                       "Arithmetic Exception", JOptionPane.ERROR_MESSAGE);
+​​​}
+ 
+       } else {
+           operator = command;
+           num1 = Double.parseDouble(textField.getText());
+           textField.setText("");
+       }
+   }
+ 
+publicstaticvoid main(String[] args) {
+new SimpleCalculator();
+   }
+}

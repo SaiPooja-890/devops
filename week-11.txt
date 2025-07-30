@@ -1,0 +1,46 @@
+package package2;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+ 
+public class Mouseeventexample extends JFrame{
+public Mouseeventexample()
+{ JFrame f=new JFrame();
+​ f.setTitle("Mouse Event Demo");
+​ f.setSize(200,300);
+​
+​ f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+​ f.setLocationRelativeTo(null);
+​ f.add(new MouseEventhandler());
+​ f.setVisible(true);
+}
+private class MouseEventhandler extends JPanel{
+​ public MouseEventhandler()
+​ {
+​​ addMouseListener(new MouseAdapter()
+​​​​ {
+​​
+​​​ public void mouseEntered(MouseEvent e)
+​​​ {
+​​​​ displayEvent("Mouse entered");
+​​​ }
+​​​ public void mousePressed(MouseEvent e)
+​​​ {
+​​​​ displayEvent("Mouse pressed");
+​​​ }
+​​​ public void mouseExited(MouseEvent e)
+​​​ {
+​​​​ displayEvent("Mouse Exited");
+​​​ }
+​​});}
+​ private void displayEvent(String msg)
+​ {
+​​ JOptionPane.showMessageDialog(this, msg, "Mouse event", JOptionPane.INFORMATION_MESSAGE);
+​ } }
+public static void main(String args[])
+{
+new​ Mouseeventexample();​
+} }

@@ -1,0 +1,59 @@
+package package2;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+public class Traffic extends JFrame{
+​private JLabel message;
+​private JRadioButton red,yellow,green;
+​public void showmessage(String msg,Color color)
+​{
+​​message.setText(msg);
+​​message.setForeground(color);
+​}
+​public Traffic()
+​{
+​​ setTitle("Traffic Light Simulator");
+​​ setSize(300, 300);
+​​ setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+​​ setLocationRelativeTo(null);        
+​​ message=new JLabel("",JLabel.CENTER);
+​​ red=new JRadioButton("Red");
+​​ yellow=new JRadioButton("Yellow");
+​​ green=new JRadioButton("Green");
+​​ ButtonGroup b=new ButtonGroup();
+​​ b.add(red);
+​​ b.add(yellow);
+​​ b.add(green);
+ 
+​​ red.addActionListener(new ActionListener()
+​      {       @Override
+​               public void actionPerformed(ActionEvent e) {
+​​showmessage("Stop",Color.RED);
+                     }
+                    });
+​yellow.addActionListener(new ActionListener()
+​{
+                    @Override
+​       public void actionPerformed(ActionEvent e) {
+​      showmessage("Ready",Color.YELLOW);
+              }
+            });
+​green.addActionListener(new ActionListener()
+​{
+                @Override
+​public void actionPerformed(ActionEvent e) {
+​showmessage("Go",Color.GREEN);
+            }
+           });
+​add(message,BorderLayout.CENTER);
+​​ JPanel p=new JPanel(new FlowLayout());
+​​ p.add(red);
+​​ p.add(yellow);
+​​ p.add(green);
+​​ add(p,BorderLayout.NORTH);
+​​setVisible(true);
+​}
+​public static void main(String args[])
+​{
+​    new Traffic();
+​}}

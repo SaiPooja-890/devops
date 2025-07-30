@@ -1,0 +1,41 @@
+package lab;
+
+abstract class shapes {
+    static int x = 8, y = 4;
+
+    abstract void area();
+}
+
+class rect extends shapes {
+    @Override
+    void area() {
+        System.out.println("AREA OF RECTANGLE: " + (x * y));
+    }
+}
+
+class tri extends shapes {
+    @Override
+    void area() {
+        System.out.println("AREA OF TRIANGLE: " + (0.5 * x * y));
+    }
+}
+
+class circle extends shapes {
+    @Override
+    void area() {
+        System.out.println("AREA OF CIRCLE: " + (3.14 * x * x));
+    }
+}
+
+public class Week3 {
+    public static void main(String[] args) {
+        rect r = new rect();
+        r.area();
+
+        tri t = new tri();
+        t.area();
+
+        circle c = new circle();
+        c.area();
+    }
+}
